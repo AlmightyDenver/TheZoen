@@ -2,15 +2,15 @@ install.packages("plyr")
 library(plyr)
 
 getwd()
-
 #make directory lists
-loc_list <- list.dirs(path = 'C:\\Users\\TJ\\Desktop\\weather\\weather\\gyeongnam', full.names = TRUE, recursive = TRUE)
-loc_list
-for (loc in loc_list) {
+dirs <- list.dirs(path = 'C:\\Users\\TJ\\Desktop\\da\\¼­¿ï', full.names = TRUE, recursive = TRUE)
+dirs
+for (dir in dirs) {
   #make csv files list in dir
-  setwd(loc)
-  loc
+  setwd(dir)
   file.list <- list.files(pattern = "*.csv")
+  file.list
+  
 }
 setwd("C:\\Users\\TJ\\Desktop\\weather\\weather\\seoul")
 loc = "C:\\Users\\TJ\\Desktop\\weather\\snow\\seoul"
