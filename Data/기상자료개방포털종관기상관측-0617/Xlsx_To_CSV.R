@@ -1,0 +1,6 @@
+# install.packages("readxl")
+library("readxl")
+setwd("C:\\deep\\spam")
+savexlsx<- read_excel("gyeongnam_combine.xlsx")
+savexlsx <- as.data.frame(savexlsx)
+write.csv(savexlsx, file = "gyeongnam_combine.csv")
