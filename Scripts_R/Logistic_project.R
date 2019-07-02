@@ -43,34 +43,40 @@ table(df$dist)
 # df$snow_c = as.factor(df$snow_c)
 library(MASS)
 colnames(df)
-logistic_ill = glm(formula = fall ~ temp + wind + rain + dew + snow+ humi ,family = 'binomial' ,data = df)
-logistic_ill= stepAIC(logistic_ill)
+logistic_fall = glm(formula = fall ~ temp + wind + rain + dew + snow+ humi ,family = 'binomial' ,data = df)
+logistic_fall= stepAIC(logistic_fall)
 
-summary(logistic_ill)
+
+
+summary(logistic_fall)
 
 #distribution of prob
-pred_ill = predict(logistic_ill)
-prob_ill = 1/(1+ exp(-pred_ill))
-summary(prob_ill)
+pred_fall = predict(logistic_fall)
+prob_fall = 1/(1+ exp(-pred_fall))
+summary(prob_fall)
+boxplot(prob_fall)
 
 library(mgcv)
 #generaliaze add model 
-ill_logistic_gam = gam(formula = fall ~ s(temp) + s(wind) + s(humi) ,family = 'binomial' ,data = df)
-summary(ill_logistic_gam)
+fall_logistic_gam = gam(formula = fall ~ s(temp) + s(wind) + s(humi) ,family = 'binomial' ,data = df)
+summary(fall_logistic_gam)
+plot(fall_logistic_gam)
+
+fall_terms = predict(fall_logistic_gam, type ='terms'  )
+summary(fall_terms)
 
 
-ill_terms = predict(ill_logistic_gam, type ='terms'  )
-summary(ill_terms)
+fall_partial_resid = resid(logistic_fall) + fall_terms
+summary(fall_partial_resid)
 
-ill_partial_resid = resid(logistic_ill) + ill_terms
-summary(ill_partial_resid)
 
 colnames(df)
-colnames(ill_partial_resid)
-colnames(ill_terms)
+colnames(fall_partial_resid)
+colnames(fall_terms)
 df_g = data.frame(temp_g = df[,'temp'], 
-                  terms_g = ill_terms[,"s(temp)"],
-                  ill_partial_resid_g = ill_partial_resid[,"s(temp)"] )
+                  terms_g = fall_terms[,"s(temp)"],
+                  fall_partial_resid_g = fall_partial_resid[,"s(temp)"] )
+
 
 # 31665 - 31648 when start have to remove n.a
 # sum(is.na(df))
@@ -80,14 +86,16 @@ df_g = data.frame(temp_g = df[,'temp'],
 library(ggplot2)
 # Error = dev.off() or reinstall
   
-ggplot(df_g, aes(x = df_g$temp, y =ill_partial_resid_g, solid =FALSE))+
+ggplot(df_g, aes(x = df_g$temp, y =fall_partial_resid_g, solid =FALSE))+
 geom_point( shape =46, alpha = .4) +
  geom_line(aes(x =df_g$temp, y =terms_g),color = 'red',alpha= 0.5, size = 1.5)+
  labs(y = 'Partial Residual')
 
 
- library(IDPmisc)
- iplot(y =  ill , x =  wind + rain+ temp + dew  , data= df)
+library(car)
+sqrt(vif(logistic_fall))  
+influencePlot(logistic_fall, id=list(method="identify"))
+
  
 
 
