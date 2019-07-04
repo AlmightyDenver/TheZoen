@@ -1,4 +1,7 @@
 모델 성능 검증(k-fold cross validation)
+code : GitHub\TheZoen\Scripts\DecisionTree.ipynb
+
+
 logistic
 Score of K-fold Cross Validation : [0.90927693 0.91265555 0.90984796 0.91139241 0.90956029] Mean: 0.91 
 
@@ -6,7 +9,7 @@ Naive
 Score of K-fold Cross Validation : [0.90887245 0.91184658 0.90982417 0.91089274 0.90920339] Mean: 0.91 
 
 DecisionTree
-Score of K-fold Cross Validation : [0.90915796 0.91265555 0.90984796 0.91139241 0.90956029] Mean: 0.91 
+Score of K-fold Cross Validation : [0.90915796 0.91265s555 0.90984796 0.91139241 0.90956029] Mean: 0.91 
 
 RandomForest
 Score of K-fold Cross Validation : [0.90927693 0.91265555 0.90984796 0.91139241 0.90956029] Mean: 0.91 
