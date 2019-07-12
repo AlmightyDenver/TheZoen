@@ -1,2 +1,0 @@
-지점	일시	습도	이슬점온도	적설(cm)
-loc	date	Humi	dew		snow 
